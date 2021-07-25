@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.department.studentcrud.entity.Student;
+import com.department.studentcrud.exception.StudentNotFoundException;
 import com.department.studentcrud.service.StudentService;
 
 @RestController
@@ -33,7 +34,7 @@ public class StudentRestController {
 		
 		Student theStudent = studentService.getById(studentId);
 		if(theStudent == null) {
-			throw new RuntimeException("Student not found with id " + studentId);
+			throw new StudentNotFoundException("Student not found with id " + studentId);
 		}
 		return theStudent;
 	}
@@ -55,11 +56,13 @@ public class StudentRestController {
 		
 		Student theStudent = studentService.getById(studentId);
 		if(theStudent == null) {
-			throw new RuntimeException("Student not found with id " + studentId);
+			throw new StudentNotFoundException("Student not found with id " + studentId);
 		}
 		studentService.deleteById(studentId);
 		return "Deleted student with id " + studentId;
 	}
+	
+	
 	
 }
 
